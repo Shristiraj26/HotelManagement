@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <a class="navbar-brand" href="#">Hotel Logo</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);" onclick="showSection('manageRoom')">Manage Room</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);" onclick="showSection('customerCheckIn')">Customer Check-in</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);" onclick="showSection('customerCheckOut')">Customer Check-out</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <!-- Manage Room Section -->
+        <div id="manageRoom" class="section" style="display: none;">
+            <h2>Manage Room</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Room Number</th>
+                        <th>Room Type</th>
+                        <th>Bed</th>
+                        <th>Price</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Room rows will be added here dynamically -->
+                </tbody>
+            </table>
+            <p>Double click on a row to update or delete</p>
+            <button class="btn btn-primary float-right" onclick="showAddRoomModal()">Add Room</button>
+        </div>
+
+        <!-- Customer Check-in Section -->
+        <div id="customerCheckIn" class="section" style="display: none;">
+            <h2>Customer Check-in</h2>
+            <!-- Add your content here -->
+        </div>
+
+        <!-- Customer Check-out Section -->
+        <div id="customerCheckOut" class="section" style="display: none;">
+            <h2>Customer Check-out</h2>
+            <!-- Add your content here -->
+        </div>
+    </div>
+
+    <!-- Add Room Modal -->
+    <div class="modal fade" id="addRoomModal" tabindex="-1" role="dialog" aria-labelledby="addRoomModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addRoomModalLabel">Add Room</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="addRoomForm">
+                        <div class="form-group">
+                            <label for="roomNumber">Room Number</label>
+                            <input type="text" class="form-control" id="roomNumber" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="roomType">Room Type</label>
+                            <select class="form-control" id="roomType" required>
+                                <option value="AC">AC</option>
+                                <option value="Non-AC">Non-AC</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="bed">Bed</label>
+                            <select class="form-control" id="bed" required>
+                                <option value="Single">Single Bed</option>
+                                <option value="Double">Double Bed</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Price</label>
+                            <input type="number" class="form-control" id="price" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="status">Status</label>
+                            <select class="form-control" id="status" required>
+                                <option value="Booked">Booked</option>
+                                <option value="Not Booked">Not Booked</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add Room</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Update/Delete Room Modal -->
+    <div class="modal fade" id="updateRoomModal" tabindex="-1" role="dialog" aria-labelledby="updateRoomModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updateRoomModalLabel">Update/Delete Room</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="updateRoomForm">
+                        <div class="form-group">
+                            <label for="updateRoomNumber">Room Number</label>
+                            <input type="text" class="form-control" id="updateRoomNumber" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="updateRoomType">Room Type</label>
+                            <select class="form-control" id="updateRoomType" required>
+                                <option value="AC">AC</option>
+                                <option value="Non-AC">Non-AC</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="updateBed">Bed</label>
+                            <select class="form-control" id="updateBed" required>
+                                <option value="Single">Single Bed</option>
+                                <option value="Double">Double Bed</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="updatePrice">Price</label>
+                            <input type="number" class="form-control" id="updatePrice" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="updateStatus">Status</label>
+                            <select class="form-control" id="updateStatus" required>
+                                <option value="Booked">Booked</option>
+                                <option value="Not Booked">Not Booked</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update Room</button>
+                        <button type="button" class="btn btn-danger" id="deleteRoomButton">Delete Room</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="home.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+
+    .background {
+        background: url('C:\Users\2376704\Desktop\Hotel Management\Loginimage.jpg') no-repeat center center fixed;
+        background-size: cover;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        filter: brightness(90%);
+        /*  */
+        top: 0;
+        left: 0;
+    }
+        /* Ensure the whole page is a flex container */
+        .admin-dashboard {
+            display: flex;
+            height: 100vh;
+        }
+
+        /* Sidebar styling */
+        .sidebar {
+            width: 250px;
+            background-color: #f4f4f4;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            flex-shrink: 0;
+        }
+
+        .sidebar button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            text-align: left;
+            font-size: 16px;
+        }
+
+        /* Content area, initially hidden */
+        .content-area {
+            flex-grow: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Hide the sections initially */
+        .hidden {
+            display: none;
+        }
+
+        /* Content section styling */
+        .section {
+            margin-bottom: 20px;
+            background-color: #ffffff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+
+        #manage-room-section {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px auto;
+            width: 60%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Adjust the table for smaller size */
+
+        /* -------------------------- */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        table th {
+            background-color: #f4f4f4;
+        }
+        .info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .add-room-btn {
+            background-color: #547397;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .add-room-btn:hover {
+            background-color: #0056b3;
+        }
+
+        
+
+        /* Customer Check-Out Section Styling */
+        #check-out-section .form-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #check-out-section .form-container .form-group {
+            margin-bottom: 15px;
+            flex: 0 0 48%;
+        }
+
+        /* Adjust for smaller screens */
+        @media (max-width: 768px) {
+            #check-out-section .form-container {
+                flex-direction: column;
+            }
+            #check-out-section .form-container .form-group {
+                flex: 0 0 100%;
+            }
+        }
+
+        /* Additional styling for the sidebar */
+        .sidebar img {
+            width: 16px;
+            height: 16px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-dashboard">
+        <!-- Sidebar Buttons -->
+        <div class="sidebar">
+            <button id="manage-room-btn"><img src="C:\Users\2376704\Desktop\Hotel Management\icons\5-stars.png" alt="Manage Icon"> Manage Room</button>
+            <button id="customer-checkin-btn"><img src="C:\Users\2376704\Desktop\Hotel Management\icons\check-in.png" alt="Check In Icon"> Customer Check In</button>
+            <button id="customer-checkout-btn"><img src="C:\Users\2376704\Desktop\Hotel Management\icons\check-out.png" alt="Check Out Icon"> Customer Check Out</button>
+            <!-- <button id="customer-bill-btn"><img src="/icons/bill.png" alt="Bill Icon"> Customer Details Bill</button> -->
+            <button class="logout-btn"><img src="C:\Users\2376704\Desktop\Hotel Management\icons\logout.png" alt="Logout Icon"> Log Out</button>
+        </div>
+
+        <!-- Content area -->
+        <div class="content-area">
+
+
+            <!-- Manage Rooms Section -->
+            <div id="manage-room-section" class="section hidden">
+                <h2>Manage Rooms</h2>
+                <table id="room-table">
+                    <thead>
+                        <tr>
+                            <th>Room No</th>
+                            <th>Room Type</th>
+                            <th>Bed</th>
+                            <th>Price</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ondblclick="editRoom(this)">
+                            <td>101</td>
+                            <td>AC</td>
+                            <td>Single</td>
+                            <td>1500</td>
+                            <td>Not Booked</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="info">
+                    Double click on a row to update or delete
+                    <button id="add-room-btn" class="add-room-btn">Add Room</button>
+                </p>
+            </div>
+
+            <!-- Customer Check-In Section -->
+            <div id="check-in-section" class="section hidden">
+                <h3>Customer Check IN</h3>
+                <form>
+                    <div id="customer-form-section" class="section">
+                        <form id="customer-form">
+                            <div class="row">
+                                <!-- Left section (1st column) -->
+                                <div class="form-left col-md-6">
+                                    <label for="name">Name</label>
+                                    <input type="text" id="name" placeholder="Enter Name" class="form-control">
+                                    
+                                    <label for="mobile">Mobile Number</label>
+                                    <input type="text" id="mobile" placeholder="Enter Mobile Number" class="form-control">
+                                    
+                                    <label for="email">Email</label>
+                                    <input type="email" id="email" placeholder="Enter Email" class="form-control">
+                                    
+                                    <label for="gender">Gender</label>
+                                    <select id="gender" class="form-control">
+                                        <option>--Select--</option>
+                                        <option>Male</option>
+                                        <option>Female</option>
+                                    </select>
+                                    
+                                    <label for="nationality">Nationality</label>
+                                    <input type="text" id="nationality" placeholder="Enter Nationality" class="form-control">
+                                    
+                                    <label for="aadhaar">Aadhaar Number</label>
+                                    <input type="text" id="aadhaar" placeholder="Enter Aadhaar Number" class="form-control">
+                                    
+                                    <label for="address">Address</label>
+                                    <input type="text" id="address" placeholder="Enter Address" class="form-control">
+                                </div>
+                    
+                                <!-- Right section (2nd column) -->
+                                <div class="form-right col-md-6">
+                                    <label for="checkin-date">Check-In Date (Today)</label>
+                                    <input type="date" id="checkin-date" class="form-control">
+                                    
+                                    <label for="room-type">Room Type</label>
+                                    <select id="room-type" class="form-control">
+                                        <option>AC</option>
+                                        <option>Non-AC</option>
+                                    </select>
+                                    
+                                    <label for="bed">Bed</label>
+                                    <select id="bed" class="form-control">
+                                        <option>Single</option>
+                                        <option>Double</option>
+                                    </select>
+                                    
+                                    <label for="room-number">Room Number</label>
+                                    <input type="text" id="room-number" placeholder="Enter Room Number" class="form-control">
+                                    
+                                    <label for="price">Price</label>
+                                    <input type="text" id="price" placeholder="Enter Price" class="form-control">
+                                </div>
+                            </div>
+                    
+                            <!-- Action Buttons -->
+                            <div class="action-buttons">
+                                <button type="submit" class="btn btn-primary" style="width: 200px;">Allot Room</button>
+                                <button type="reset" class="btn btn-danger" style="width: 200px;">Clear</button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                </form>
+            </div>
+
+            <!-- Customer Check-Out Section -->
+            <div id="check-out-section" class="section hidden">
+                <h4>Customer Check Out</h4>
+                <form id="checkout-form">
+                    <!-- Upper section (1st column) -->
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="room-number" class="form-label">Room Number</label>
+                            <input type="text" id="room-number" class="form-control" placeholder="Enter Room Number">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="customer-name" class="form-label">Customer Name</label>
+                            <input type="text" id="customer-name" class="form-control" placeholder="Enter Customer Name">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="mobile-number" class="form-label">Customer Mobile Number</label>
+                            <input type="text" id="mobile-number" class="form-control" placeholder="Enter Mobile Number">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" id="email" class="form-control" placeholder="Enter Email">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="price-per-day" class="form-label">Price Per Day</label>
+                            <input type="text" id="price-per-day" class="form-control" placeholder="Enter Price Per Day">
+                        </div>
+                    </div>
+
+                    <!-- Lower section (2nd column) -->
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="number-of-days" class="form-label">Number of Days</label>
+                            <input type="text" id="number-of-days" class="form-control" placeholder="Enter Number of Days">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="check-in-date" class="form-label">Check-In Date</label>
+                            <input type="date" id="check-in-date" class="form-control">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="check-out-date" class="form-label">Check-Out Date (Today)</label>
+                            <input type="date" id="check-out-date" class="form-control">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="total-amount" class="form-label">Total Amount</label>
+                            <input type="text" id="total-amount" class="form-control" readonly>
+                        </div>
+                        <div class="action-buttons" style="margin-top: 20px;">
+                            <button type="submit" class="btn btn-primary" style="width: 200px;">Allot Room</button>
+                            <button type="reset" class="btn btn-danger" style="width: 200px;">Clear</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+        </div>
+    </div>
+
+    <script src="home.js"></script>
+    <script>
+        document.getElementById("customer-checkin-btn").addEventListener("click", function() {
+            document.getElementById("check-in-section").classList.remove("hidden");
+            document.getElementById("check-out-section").classList.add("hidden");
+            document.getElementById("manage-room-section").classList.add("hidden");
+        });
+
+        document.getElementById("customer-checkout-btn").addEventListener("click", function() {
+            document.getElementById("check-out-section").classList.remove("hidden");
+            document.getElementById("check-in-section").classList.add("hidden");
+            document.getElementById("manage-room-section").classList.add("hidden");
+        });
+
+        document.getElementById("manage-room-btn").addEventListener("click", function() {
+            document.getElementById("manage-room-section").classList.remove("hidden");
+            document.getElementById("check-in-section").classList.add("hidden");
+            document.getElementById("check-out-section").classList.add("hidden");
+        });
+        document.getElementById("customer-bill-btn").addEventListener("click", function() {
+            document.getElementById("customer-bill-section").classList.remove("hidden");
+            document.getElementById("customer-bill-section").classList.add("hidden");
+            document.getElementById("manage-room-section").classList.add("hidden");
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="home.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="admin-dashboard">
+        <!-- Background image --->
+<!--         <div class="background"></div> -->
+
+        <!-- Close Tab Button -->
+<!--         <button class="close-tab" onclick="closeTab()">X</button> -->
+
+        <!-- Sidebar Buttons -->
+         <!-- <div class="container">
+            <div class="card">
+        <div class="sidebar">
+            <button id="manage-room-btn"><img src="/icons/5-stars.png" alt="Manage Icon"> Manage Room</button>
+            <button id="customer-checkin-btn"><img src="/icons/check-in.png" alt="Check In Icon"> Customer Check In</button>
+            <button id="customer-checkout-btn"><img src="/icons/check-out.png" alt="Check Out Icon"> Customer Check Out</button>
+            <button id="customer-bill-btn"><img src="/icons/bill.png" alt="Bill Icon"> Customer Details Bill</button>
+            <button class="logout-btn"><img src="/icons/logout.png" alt="Logout Icon"> Log Out</button>
+        </div>
+        </div> -->
+
+
+    <!--Manage Rooms-->
+<!--         <div class="container">
+            <div id="manage-room-section" class="hidden">
+                <h2>Manage Rooms</h2>
+                <table id="room-table">
+                    <thead>
+                        <tr>
+                            <th>Room No</th>
+                            <th>Room Type</th>
+                            <th>Bed</th>
+                            <th>Price</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Dynamically filled rows -->
+<!--                         <tr ondblclick="editRoom(this)">
+                            <td>101</td>
+                            <td>AC</td>
+                            <td>Single</td>
+                            <td>1500</td>
+                            <td>Not Booked</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <p class="info">
+                    Double click on a row to update or delete
+                    <button id="add-room-btn" class="add-room-btn">Add Room</button>
+                </p>
+            </div> -->
+
+
+
+        <!-- Check IN -->
+<!--             <div id="check-in-section" class="hidden">
+            <div class="content">
+                <div class="customer-check-in">
+                    <h3>Customer Check IN</h3>
+                    <div class="form-container">
+                        <form> -->
+                            <!-- Left Column -->
+<!--                             <div class="form-left">
+                                <label for="name">Name</label>
+                                <input type="text" id="name" placeholder="Enter Name">
+            
+                                <label for="mobile">Mobile Number</label>
+                                <input type="text" id="mobile" placeholder="Enter Mobile Number">
+            
+                                <label for="email">Email</label>
+                                <input type="email" id="email" placeholder="Enter Email">
+            
+                                <label for="gender">Gender</label>
+                                <select id="gender">
+                                    <option>--Select-- </option>
+                                    <option>Male</option>
+                                    <option>Female</option>
+                                </select>
+            
+                                <label for="nationality">Nationality</label>
+                                <input type="text" id="nationality" placeholder="Enter Nationality">
+            
+                                <label for="aadhaar">Aadhaar Number</label>
+                                <input type="text" id="aadhaar" placeholder="Enter Aadhaar Number">
+            
+                                <label for="address">Address</label>
+                                <input type="text" id="address" placeholder="Enter Address">
+                            </div> -->
+        
+                        <!-- Right Column -->
+<!--                         <div class="form-right">
+                            <label for="checkin-date">Check-In Date (Today)</label>
+                            <input type="date" id="checkin-date">
+        
+                            <label for="room-type">Room Type</label>
+                            <select id="room-type">
+                                <option>AC</option>
+                                <option>Non-AC</option>
+                            </select>
+        
+                            <label for="bed">Bed</label>
+                            <select id="bed">
+                                <option>Single</option>
+                                <option>Double</option>
+                            </select>
+        
+                            <label for="room-number">Room Number</label>
+                            <input type="text" id="room-number" placeholder="Enter Room Number">
+        
+                            <label for="price">Price</label>
+                            <input type="text" id="price" placeholder="Enter Price">
+                        </div> -->
+        
+                        <!-- Action Buttons -->
+<!--                             <div class="action-buttons">
+                            <button type="submit" class="allot-btn">Allot Room</button>
+                            <button type="reset" class="clear-btn">Clear</button>
+                            </div>
+                        </form> -->
+<!--                     </div>
+                </div>
+            </div>
+        </div>
+        
+        </div>
+
+   Check Out
+        
+
+
+
+            <div class="container">
+                
+                <div class="sidebar">
+                    <button id="manage-room-btn"><img src="/icons/5-stars.png" alt="Manage Icon"> Manage Room</button>
+                    <button id="customer-checkin-btn"><img src="/icons/check-in.png" alt="Check In Icon"> Customer Check In</button>
+                    <button id="customer-checkout-btn"><img src="/icons/check-out.png" alt="Check Out Icon"> Customer Check Out</button>
+                    <button id="customer-bill-btn"><img src="/icons/bill.png" alt="Bill Icon"> Customer Details Bill</button>
+                    <button class="logout-btn"><img src="/icons/logout.png" alt="Logout Icon"> Log Out</button>
+                </div>
+            </div>
+        </div>
+
+    <script src="home.js"></script>
+</body>
+</html> -->

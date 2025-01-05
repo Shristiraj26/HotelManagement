@@ -1,0 +1,241 @@
+/* Background settings */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.admin-dashboard {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    /*  */
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.background {
+    background: url('C:\Users\2376704\Desktop\Hotel Management\images\Loginimage1.avif') no-repeat center center fixed;
+    background-size: cover;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    filter: brightness(90%);
+    /*  */
+    top: 0;
+    left: 0;
+}
+
+/* Close Tab Button Styling */
+.close-tab {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgb(221, 183, 183);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.close-tab:hover {
+    background-color: rgb(204, 123, 123);
+    transform: scale(1.1);
+}
+
+/* Sidebar styling */
+.sidebar {
+    position: fixed;
+    top: 50%;
+    right: 2%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    transform: translateY(-50%);
+    z-index: 5;
+}
+
+.sidebar button {
+    width: 250px;
+    height: 60px;
+    padding: 10px;
+    text-align: left;
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    background-color: rgb(195, 196, 196);
+    justify-content: flex-start;
+
+}
+
+.sidebar button img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.sidebar button:hover {
+    background-color: #a9abac;
+    transform: scale(1.05);
+}
+
+.sidebar button:active {
+    transform: scale(1.02);
+}
+
+.logout-btn {
+    background-color: black;
+    color: black;
+}
+
+/* Manage Room Section */
+#manage-room-section {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px auto;
+    width: 80%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+#manage-room-section.hidden {
+    display: none;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+table th {
+    background-color: #f4f4f4;
+}
+.info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    color: #555;
+}
+
+.add-room-btn {
+    background-color: #547397;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.add-room-btn:hover {
+    background-color: #0056b3;
+}
+
+
+
+/* Check in */
+.content {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    width: 80%;
+    max-width: 900px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* #check-in-section.hidden {
+    display: none;
+} */
+.customer-check-in {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+h3 {
+    text-align: center;
+    margin: 0;
+    font-size: 24px;
+    color: #003366;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.form-left,
+.form-right {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+}
+
+label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #003366;
+}
+
+input,
+select {
+    padding: 8px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 100%;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.allot-btn,
+.clear-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.allot-btn {
+    background-color: #4caf50;
+    color: white;
+}
+
+.clear-btn {
+    background-color: #f44336;
+    color: white;
+}

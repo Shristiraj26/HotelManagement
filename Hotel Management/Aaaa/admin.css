@@ -1,0 +1,15 @@
+body {
+    padding-top: 56px;
+}
+
+.section {
+    margin-top: 20px;
+}
+
+.table-container {
+    margin-top: 20px;
+}
+
+.modal-content {
+    background: rgba(255, 255, 255, 0.9);
+}
